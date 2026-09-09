@@ -8,12 +8,7 @@
 name: linux
 
 on:
-  push:
-    branches:
-    - main
-  pull_request:
-    branches:
-    - main
+ workflow_dispatch: 
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)
@@ -143,12 +138,12 @@ jobs:
     - name: Test folly
       run: python3 build/fbcode_builder/getdeps.py --allow-system-packages test --build-type RelWithDebInfo --src-dir=. folly --project-install-prefix folly:/usr/local
 
-    - name: Show disk space at end
-      if: always()
-      run: df -h
+    # - name: Show disk space at end
+    #   if: always()
+    #   run: df -h
 
-    - name: Show GitHub Actions cache usage
-      if: always()
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: gh cache list --repo ${{ github.repository }} --sort size_in_bytes --order desc --limit 30
+    # - name: Show GitHub Actions cache usage
+    #   if: always()
+    #   env:
+    #     GH_TOKEN: ${{ github.token }}
+    #   run: gh cache list --repo ${{ github.repository }} --sort size_in_bytes --order desc --limit 30
